@@ -11,6 +11,8 @@ var con = mysql.createConnection({
     password: dbData.password
 });
 
+playerIds = [];
+
 con.connect(async (err) => {
     if (err) throw err;
     console.log("Połączono!");
@@ -63,21 +65,31 @@ getCsvData = (fileName, isRankingInsert, count) => {
             console.log(`Readed ${fileName} rows: ${++readedRows}/${count}`);
             
             if(isRankingInsert) {
-                values.push([
-                    row.player,
-                    row.ranking_date,
-                    row.rank,
-                    row.points,
-                ]);
+                if(playerIds.includes(row.player)) {
+                    const dString = (row.ranking_date).toString();
+
+                    values.push([
+                        row.player,
+                        new Date(`${dString.substring(0,4)}-${dString.substring(4,6)}-${dString.substring(6,8)}`),
+                        row.rank,
+                        row.points,
+                    ]);
+                }
             } else {
-                values.push([
-                    row.id,
-                    row.first_name,
-                    row.last_name,
-                    row.hand == 'R' ? true : false,
-                    row.birth,
-                    row.country
-                ]);
+                if(!!row.first_name && !!row.last_name) {
+                    const dString = (row.birth).toString();
+
+                    values.push([
+                        row.id,
+                        row.first_name,
+                        row.last_name,
+                        row.hand == 'R' ? true : false,
+                        new Date(`${dString.substring(0,4)}-${dString.substring(4,6)}-${dString.substring(6,8)}`),
+                        row.country
+                    ]);
+
+                    playerIds.push(row.id);
+                }
             }
         })
         .on('end', () => {

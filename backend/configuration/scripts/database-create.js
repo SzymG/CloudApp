@@ -24,11 +24,11 @@ con.connect((err) => {
             con.query("CREATE DATABASE atp", function (err, result) {
                 if (err) throw err;
 
-                const playerTableCreateQuery = "CREATE TABLE `atp`.`player` (`id` INT NOT NULL,\
+                const playerTableCreateQuery = "CREATE TABLE `atp`.`player` (`id` INT NOT NULL AUTO_INCREMENT,\
                     `first_name` VARCHAR(50) NOT NULL, \
                     `last_name` VARCHAR(50) NOT NULL, \
                     `is_right_handed` TINYINT(1) NOT NULL DEFAULT 0, \
-                    `birth_date` INT NOT NULL, \
+                    `birth_date` DATE NOT NULL, \
                     `country_symbol` VARCHAR(10) NOT NULL, \
                     PRIMARY KEY (`id`) \
                 );";
@@ -36,7 +36,7 @@ con.connect((err) => {
                 const rankingTableCreateQuery = "CREATE TABLE `atp`.`ranking` ( \
                     `id` INT(11) NOT NULL AUTO_INCREMENT, \
                     `player_id` INT(11) NOT NULL, \
-                    `date_creation` INT(11) NOT NULL, \
+                    `date_creation` DATE NOT NULL, \
                     `rank` INT(11) NOT NULL, \
                     `points` INT(11) NOT NULL, \
                     PRIMARY KEY (`id`), \

@@ -23,3 +23,5 @@ BACKEND
 Sam backend uruchamiamy komendą:
 
 node .\server.js lub nodemon .\server.js (jeśli chcemy mieć live reload)
+
+Aplikacja uruchamia się na porcie 3000

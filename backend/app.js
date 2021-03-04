@@ -1,13 +1,13 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
+const bodyParser = require("body-parser");
 
 const atpRoutes = require('./api/routes/atp');
 
-app.use('/', atpRoutes);
+const app = express();
 
-app.use('/success', (req, res, next) => {
-    console.log('We get a callback success!');
-    res.send('success');
-});
+app.use(cors());
+app.use(bodyParser.json());
+app.use('/', atpRoutes);
 
 module.exports = app;

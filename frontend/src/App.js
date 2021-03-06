@@ -10,10 +10,18 @@ import PlayerUpdate from './components/PlayerUpdate';
 import Ranking from './components/Ranking';
 import RankingCreate from './components/RankingCreate';
 import RankingUpdate from './components/RankingUpdate';
+import homeImage from './assets/img/home.png';
 
 function App() {
     return (
         <Router>
+            <Route>
+                <nav className="navbar">
+                    <a className="navbar-brand" href="/">
+                        <img src={homeImage} alt="home" width={100}/>
+                    </a>
+                </nav>
+            </Route>
             <div className="container">
                 <Switch>
                     <Route exact path='/player/view/:id' component={Player}>
@@ -28,8 +36,7 @@ function App() {
                     </Route>
                     <Route exact path='/ranking/update/:id' component={RankingUpdate}>
                     </Route>
-                    <Route>
-                        <PlayerList/>
+                    <Route component={PlayerList}>
                     </Route>
                 </Switch>
             </div>

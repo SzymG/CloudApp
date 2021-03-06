@@ -1,0 +1,63 @@
+.player-view-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 2.5rem;
+}
+
+.player-view-container .name {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-view-container .name .buttons {
+    display: flex;
+}
+
+.player-view-container .name .buttons button {
+    margin-left: 1.5rem;
+}
+
+.player-view-container .name button {
+    background-color: #051224;
+    border: 2px solid #051224;
+    width: 100px;
+    color: white;
+    font-size: 1rem;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color .7s, background-color .7s;
+}
+
+.player-view-container .name button:focus {
+    outline: none;
+}
+
+.player-view-container .name button:hover {
+    background-color: white;
+    color: #051224;
+}
+
+.player-view-container .info-data {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.player-view-container .info-element {
+    display: flex;
+    font-size: 1.2rem;
+    margin: .5rem 0;
+}
+
+.player-view-container .info-element .label {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.player-view-container .info-element .data {
+    margin: 0 1rem;
+    display: flex;
+    align-items: center;
+}

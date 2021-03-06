@@ -57,7 +57,7 @@ exports.deletePlayer = async (req, res) => {
 
 exports.findAllPlayers = async (req, res) => {
 
-    const pageSize = req.query.pageSize || 20;
+    const pageSize = req.query.pageSize || 10;
     const pageNumber = req.query.pageNumber || 1;
     const term = req.query.term || '';
 

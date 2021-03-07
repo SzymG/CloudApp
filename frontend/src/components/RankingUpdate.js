@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/ranking-update-style.css';
 import { fetchData } from "../helpers/RequestHelper";
+import { Confirm } from 'react-st-modal';
 
 class RankingUpdate extends React.Component {
 
@@ -16,7 +17,7 @@ class RankingUpdate extends React.Component {
             },
             playerName: '',
         };
-
+ 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -57,21 +58,32 @@ class RankingUpdate extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        const { history } = this.props;
+
         fetchData('POST', `ranking/${this.state.rankingData.id}`, this.state.rankingData)
             .then((res) => {
-                console.log('res', res)
+                history.push(`/player/view/${this.state.rankingData.playerId}`);
             })
             .catch((err) => {
                 console.log('err', err);
             });
     }
 
-    handleDelete(event) {
+    async handleDelete(event) {
         event.preventDefault();
-        if (window.confirm("Czy na pewno chcesz usunąć?")) {
+        const { history } = this.props;
+
+        const result = await Confirm(
+            'Czy na pewno chcesz usunąć ranking? Operacja jest nieodwracalna.',
+            'Usuwanie rankingu',
+            'Usuń',
+            'Anuluj',
+            );
+        
+        if (result) {
             fetchData('DELETE', `ranking/${this.state.rankingData.id}`, {})
                 .then((res) => {
-                    console.log('res', res)
+                    history.push(`/player/view/${this.state.rankingData.playerId}`);
                 })
                 .catch((err) => {
                     console.log('err', err);
@@ -81,12 +93,10 @@ class RankingUpdate extends React.Component {
 
     render() {
         return (
-            <div className="ranking-update">
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Zawodnik: {this.state.playerName}
-                    </label>
-                    <br/>
+            <div className="ranking-update-container">
+                <h1>Edycja rankingu</h1>
+                <h2>{this.state.playerName}</h2>
+                <form className="ranking-update-form" onSubmit={this.handleSubmit} id="ranking-update-form">
                     <label>
                         Data rankingu:
                         <input required
@@ -108,8 +118,8 @@ class RankingUpdate extends React.Component {
                             onChange={this.handleInputChange} />
                     </label>
                     <br />
-                    <input type="submit" value="Wyślij" />
                 </form>
+                <button onClick={this.handleSubmit}>Zapisz</button>
                 <button onClick={this.handleDelete}>Usuń</button>
             </div>
         );

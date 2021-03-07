@@ -18,6 +18,8 @@ class Ranking extends React.Component {
             },
             playerName: '',
         };
+
+        this.handleRankingEdit = this.handleRankingEdit.bind(this);
     }
 
     componentDidMount() {
@@ -41,20 +43,42 @@ class Ranking extends React.Component {
             });
     }
 
+    handleRankingEdit() {
+        const { history } = this.props;
+        history.push(`/ranking/update/${this.state.rankingData.id}`);
+    }
+
     render() {
-        return <div>
-            <div>{this.state.playerName}</div>
-            <div>{this.state.rankingData.id}</div>
-            <div>{this.state.rankingData.playerId}</div>
-            <div>{this.state.rankingData.dateCreation}</div>
-            <div>{this.state.rankingData.rank}</div>
-            <div>{this.state.rankingData.points}</div>
+        return <div className="ranking-view-container">
+            <div className="name">
+                <h2>Ranking zawodnika {this.state.playerName}</h2>
+                <button onClick={this.handleRankingEdit}>Edytuj</button>
+            </div>
+            <div className="info-data">
+                <div className="info-element">
+                    <div className="label">Data rankingu:</div>
+                    <div className="data">{this.state.rankingData ? this.state.rankingData.dateCreation : ''}</div>
+                </div>
+                <div className="info-element">
+                    <div className="label">Ranking:</div>
+                    <div className="data">{this.state.rankingData ? this.state.rankingData.rank : ''}</div>
+                </div>
+                <div className="info-element">
+                    <div className="label">Punkty:</div>
+                    <div className="data">{this.state.rankingData ? this.state.rankingData.points : ''}</div>
+                </div>
+            </div>
         </div>;
     }
 
     formatDate = (date) => {
-        return date.getFullYear() + "-" + ((date.getMonth() + 1).length > 1 ? (date.getMonth() + 1) : `0${(date.getMonth() + 1)}`) +
-            "-" + ((date.getDate()).length > 1 ? (date.getDate()) : `0${(date.getDate())}`);
+        if(isNaN(date.getFullYear())) {
+            return 'Brak danych';
+        }
+        
+        return ((date.getDate().toString()).length > 1 ? (date.getDate()) : `0${(date.getDate())}`) + "-"
+            + ((date.getMonth() + 1).toString().length > 1 ? (date.getMonth() + 1) : `0${(date.getMonth() + 1)}`) +
+            "-" + date.getFullYear();
     }
 }
 

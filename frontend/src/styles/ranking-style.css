@@ -1,0 +1,51 @@
+.ranking-view-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.5rem;
+}
+
+.ranking-view-container .name {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+}
+
+.ranking-view-container .info-element {
+    display: flex;
+    font-size: 1.2rem;
+    margin: .5rem 0;
+}
+
+.ranking-view-container .info-element .label {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.ranking-view-container .info-element .data {
+    margin: 0 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.ranking-view-container button {
+    background-color: #051224;
+    border: 2px solid #051224;
+    width: 100px;
+    color: white;
+    font-size: 1rem;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color .7s, background-color .7s;
+}
+
+.ranking-view-container button:focus {
+    outline: none;
+}
+
+.ranking-view-container button:hover {
+    background-color: white;
+    color: #051224;
+}

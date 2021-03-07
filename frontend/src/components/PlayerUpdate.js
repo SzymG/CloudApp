@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/player-update-style.css';
 import { fetchData } from "../helpers/RequestHelper";
+import { Confirm } from 'react-st-modal';
 
 class PlayerUpdate extends React.Component {
 
@@ -49,21 +50,32 @@ class PlayerUpdate extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        const { history } = this.props;
+        
         fetchData('POST', `player/${this.state.id}`, this.state)
             .then((res) => {
-                console.log('res', res)
+                history.push(`/player/view/${this.state.id}`);
             })
             .catch((err) => {
                 console.log('err', err);
             });
     }
 
-    handleDelete(event) {
+    async handleDelete(event) {
         event.preventDefault();
-        if (window.confirm("Czy na pewno chcesz usunąć?")) {
+        const { history } = this.props;
+
+        const result = await Confirm(
+            'Czy na pewno chcesz usunąć zawodnika? Spowoduje to także usunięcie wszystkich jego danych o rankingach.',
+            'Usuwanie zawodnika',
+            'Usuń',
+            'Anuluj',
+            );
+        
+        if (result) {
             fetchData('DELETE', `player/${this.state.id}`, {})
                 .then((res) => {
-                    console.log('res', res)
+                    history.push(`/`);
                 })
                 .catch((err) => {
                     console.log('err', err);
@@ -73,8 +85,9 @@ class PlayerUpdate extends React.Component {
 
     render() {
         return (
-            <div className="update-container">   
-                <form onSubmit={this.handleSubmit}>
+            <div className="player-update-container">
+                <h1>Edycja zawodnika</h1>
+                <form className="player-update-form" onSubmit={this.handleSubmit} id="player-update-form">
                     <label>
                         Imię:
                         <input required
@@ -91,7 +104,7 @@ class PlayerUpdate extends React.Component {
                     <br />
                     <label>
                         Czy jest praworęczny:
-                        <input required
+                        <input
                             name="isRightHanded" type="checkbox" value={this.state.isRightHanded}
                             checked={this.state.isRightHanded}
                             onChange={this.handleInputChange} />
@@ -111,16 +124,16 @@ class PlayerUpdate extends React.Component {
                             onChange={this.handleInputChange} />
                     </label>
                     <br />
-                    <input type="submit" value="Wyślij" />
                 </form>
+                <button type="submit" form="player-update-form" value="Submit">Zapisz</button>
                 <button onClick={this.handleDelete}>Usuń</button>
             </div>
         );
     }
 
     formatDate = (date) => {
-        return date.getFullYear() + "-" + ((date.getMonth() + 1).length > 1 ? (date.getMonth() + 1) : `0${(date.getMonth() + 1)}`) +
-            "-" + ((date.getDate()).length > 1 ? (date.getDate()) : `0${(date.getDate())}`);
+        return date.getFullYear() + "-" + ((date.getMonth() + 1).toString().length > 1 ? (date.getMonth() + 1) : `0${(date.getMonth() + 1)}`) +
+            "-" + ((date.getDate()).toString().length > 1 ? (date.getDate()) : `0${(date.getDate())}`);
     }
 }
 

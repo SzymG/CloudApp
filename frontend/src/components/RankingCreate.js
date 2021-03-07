@@ -49,9 +49,11 @@ class RankingCreate extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        const { history } = this.props;
+
         fetchData('PUT', `ranking/${this.state.rankingData.playerId}`, this.state.rankingData)
             .then((res) => {
-                console.log('res', res)
+                history.push(`/player/view/${this.state.rankingData.playerId}`);
             })
             .catch((err) => {
                 console.log('err', err);
@@ -60,34 +62,37 @@ class RankingCreate extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Zawodnik: {this.state.playerName}
-                </label>
-                <br />
-                <label>
-                    Data rankingu:
-                    <input required
-                        name="dateCreation" type="date"
-                        onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    Ranking:
-                    <input required
-                        name="rank" type="number"
-                        onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    Punkty:
-                    <input required
-                        name="points" type="number"
-                        onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <input type="submit" value="Wyślij" />
-            </form>
+            <div className="ranking-create-container">
+                <h1>Tworzenie rankingu</h1>
+                <form className="ranking-create-form" onSubmit={this.handleSubmit} id="ranking-create-form">
+                    <h2>
+                        {this.state.playerName}
+                    </h2>
+                    <br />
+                    <label>
+                        Data rankingu:
+                        <input required
+                            name="dateCreation" type="date"
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Ranking:
+                        <input required
+                            name="rank" type="number"
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        Punkty:
+                        <input required
+                            name="points" type="number"
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br />
+                </form>
+                <button type="submit" form="ranking-create-form" value="Submit">Zapisz</button>
+            </div>
         );
     }
 }

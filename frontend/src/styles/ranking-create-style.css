@@ -1,0 +1,53 @@
+.ranking-create-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+.ranking-create-container h1,h2 {
+    text-align: center;
+}
+
+.ranking-create-form {
+    width: 50%;
+}
+
+.ranking-create-form label {
+    display: flex;
+    flex-direction: column;
+}
+
+.ranking-create-form input {
+    padding: 8px;
+    border: 2px solid #051224;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+.ranking-create-form input:focus {
+    outline: none;
+}
+
+
+.ranking-create-container button {
+    background-color: #051224;
+    border: 2px solid #051224;
+    color: white;
+    font-size: 1rem;
+    padding: 8px;
+    border-radius: 5px;
+    width: 50%;
+    cursor: pointer;
+    transition: color .7s, background-color .7s;
+}
+
+.ranking-create-container button:focus {
+    outline: none;
+}
+
+.ranking-create-container button:hover {
+    background-color: white;
+    color: #051224;
+}

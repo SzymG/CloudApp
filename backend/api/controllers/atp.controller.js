@@ -43,15 +43,22 @@ exports.updatePlayer = async (req, res) => {
 }
 
 exports.deletePlayer = async (req, res) => {
+    let stmtRank = 'DELETE FROM atp.ranking WHERE player_id= ?';
     let stmt = 'DELETE FROM atp.player WHERE id= ?';
     let values = [req.params.id];
 
-    con.query(stmt, values, (err, results, fields) => {
+    con.query(stmtRank, values, (err, results, fields) => {
         if (err) {
             return res.status(500).json(err);
         }
-        
-        res.send(results);
+
+        con.query(stmt, values, (err, results, fields) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            
+            res.send(results);
+        });
     });
 }
 

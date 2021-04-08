@@ -1,3 +1,9 @@
 Projekt realizowany w ramach przedmiotu Aplikacje w chmurze.
 
-W celu lokalnej konfiguracji projektu proszę kierować się instrukcjami zawartymi w pliku README najpierw w folderze backend, a następnie frontend.
+Do uruchomienia projektu niezbędne jest zainstalowanie Vagrant i VirtualBox.
+
+Aby zbudować projekt należy wykonać:
+
+vagrant up
+
+Aplikacja uruchamia się na porcie 8080.

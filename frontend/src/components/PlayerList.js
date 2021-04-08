@@ -140,7 +140,7 @@ class PlayerList extends React.Component {
                             <div className="pagination">
                                 {this.state.pageNumber > 1 && <div className="prev" onClick={this.handlePrevPage}>&larr;</div>}
                                 <div>{this.state.pageNumber}</div>
-                                {this.state.rows.length == 10 && <div className="next" onClick={this.handleNextPage}>&rarr;</div>}
+                                {this.state.rows.length === 10 && <div className="next" onClick={this.handleNextPage}>&rarr;</div>}
                             </div>
                         </div>
                     </div>

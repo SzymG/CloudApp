@@ -1,13 +1,15 @@
-const mysql = require('mysql');
+const mariadb = require('mariadb/callback');
 const fs = require('fs');
 
 let rawdata = fs.readFileSync(__dirname + '/../../configuration/data/db.json');
 let dbData = JSON.parse(rawdata);
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: dbData.user,
-    password: dbData.password
+const con = mariadb.createConnection({
+    host: "192.168.10.13",
+    user: "back",
+    password: "12345",
+    port: 3306
+
 });
 
 con.connect((err) => {

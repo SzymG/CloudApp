@@ -1,0 +1,29 @@
+- hosts: all
+  become: yes
+  
+  tasks:
+  - name: apache is installed
+    community.general.pacman:
+      name: apache
+      state: present
+      
+  - name: httpd service is enabled
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      
+  - name: npm is installed
+    community.general.pacman:
+      name: npm
+      state: present
+      
+  - name: Install packages based on package.json.
+    community.general.npm:
+      path: /vagrant/frontend
+    
+  - name: Install pm2
+    command: sudo pacman -Sy --noconfirm pm2  
+    
+  - name: Start Node.js app
+    command: pm2 start npm -- start --prefix /vagrant/frontend/
+

@@ -66,19 +66,21 @@ getCsvData = (fileName, isRankingInsert, count) => {
             
             if(isRankingInsert) {
                 if(playerIds.includes(row.player)) {
+					
                     const dString = (row.ranking_date).toString();
-
+					
                     values.push([
                         row.player,
                         new Date(`${dString.substring(0,4)}-${dString.substring(4,6)}-${dString.substring(6,8)}`),
                         row.rank,
-                        row.points,
+                        parseInt(row.points || 0),
                     ]);
                 }
             } else {
                 if(!!row.first_name && !!row.last_name) {
+					
                     const dString = (row.birth).toString();
-
+					
                     values.push([
                         row.id,
                         row.first_name,

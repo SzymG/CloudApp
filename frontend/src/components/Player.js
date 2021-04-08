@@ -149,7 +149,7 @@ class Player extends React.Component {
                     </div>
                     <div className="info-element">
                         <div className="label">Którą ręką gra:</div>
-                        <div className="data"><img src={handImage} alt="hand-image" width={100}/></div>
+                        <div className="data"><img src={handImage} alt="hand" width={100}/></div>
                     </div>
                     <div className="info-element">
                         <div className="label">W czołowej 10:</div>

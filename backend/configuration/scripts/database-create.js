@@ -28,7 +28,7 @@ con.connect((err) => {
                     `first_name` VARCHAR(50) NOT NULL, \
                     `last_name` VARCHAR(50) NOT NULL, \
                     `is_right_handed` TINYINT(1) NOT NULL DEFAULT 0, \
-                    `birth_date` DATE NOT NULL, \
+                    `birth_date` DATE, \
                     `country_symbol` VARCHAR(10) NOT NULL, \
                     PRIMARY KEY (`id`) \
                 );";
@@ -36,7 +36,7 @@ con.connect((err) => {
                 const rankingTableCreateQuery = "CREATE TABLE `atp`.`ranking` ( \
                     `id` INT(11) NOT NULL AUTO_INCREMENT, \
                     `player_id` INT(11) NOT NULL, \
-                    `date_creation` DATE NOT NULL, \
+                    `date_creation` DATE, \
                     `rank` INT(11) NOT NULL, \
                     `points` INT(11) NOT NULL, \
                     PRIMARY KEY (`id`), \

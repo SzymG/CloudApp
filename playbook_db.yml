@@ -1,0 +1,77 @@
+- hosts: all
+  become: yes
+  
+  vars:   
+    mysql_root_password: root 
+    
+  tasks:
+  - name: apache is installed
+    community.general.pacman:
+      name: apache
+      state: present
+      
+  - name: httpd service is enabled
+    ansible.builtin.service:
+      name: httpd
+      state: started
+
+  - name: Install package pip from repo
+    community.general.pacman:
+      name: python-pip
+      state: present
+    
+  - name: Install pymysql
+    command: pip install pymysql
+      
+  - name: Make sure pymysql is present
+    become: true
+    pip:
+      name: pymysql
+      state: present
+      
+  - name: Install MariaDB
+    command: sudo pacman -S --noconfirm mariadb
+    
+  - name: Initialize data directories
+    command: sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+    
+  - name: Start the service with systemd
+    command: sudo systemctl start mysqld
+    
+  - name: Enable the service to start on boot
+    command: sudo systemctl enable mysqld
+    
+  - name: Install node
+    command: sudo pacman -S --noconfirm nodejs npm  
+  
+  - name: Update MariaDB root password
+    community.mysql.mysql_user: name=root host={{item}} password={{mysql_root_password}} login_unix_socket=/var/run/mysqld/mysqld.sock
+    with_items:
+      - 127.0.0.1
+      - ::1
+      - localhost
+    
+  - name: Database create
+    command: node /vagrant/backend/configuration/scripts/database-create.js
+    
+  - name: Change max_allowed_packet
+    community.mysql.mysql_variables:
+      variable: max_allowed_packet
+      value: 134217728
+      login_user: root
+      login_password: root
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    
+  - name: Data insert
+    command: node /vagrant/backend/configuration/scripts/insert-data.js
+    
+  - name: Create database user with name 'back' and password '12345' with all database privileges
+    community.mysql.mysql_user:
+      name: back
+      password: 12345
+      host: back
+      priv: '*.*:ALL'
+      state: present
+      login_user: root
+      login_password: root
+      login_unix_socket: /var/run/mysqld/mysqld.sock

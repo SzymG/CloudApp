@@ -24,6 +24,10 @@ Vagrant.configure("2") do |config|
 	front.vm.network :forwarded_port, :guest => 8000, :host => 8080, :host_ip => "127.0.0.1"
 	front.vm.network "private_network", ip: "192.168.10.11"
 	front.vm.hostname = "front"
+    front.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
+      vb.customize ["modifyvm", :id, "--cpus", "2"]
+    end
   end
 
 

@@ -14,7 +14,6 @@ Vagrant.configure("2") do |config|
   config.vm.define "back" do |back|
 	back.vm.box = "archlinux/archlinux"
 	back.vm.provision "apache", type: "ansible_local", playbook: "playbook_back.yml"
-	back.vm.network :forwarded_port, :guest => 3000, :host => 8081, :host_ip => "127.0.0.1"
 	back.vm.network "private_network", ip: "192.168.10.12"
 	back.vm.hostname = "back"
   end

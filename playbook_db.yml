@@ -15,6 +15,15 @@
       name: httpd
       state: started
 
+  - name: npm is installed
+    community.general.pacman:
+      name: npm
+      state: present
+
+  - name: Install packages based on package.json
+    community.general.npm:
+      path: /vagrant/backend
+
   - name: Install package pip from repo
     community.general.pacman:
       name: python-pip

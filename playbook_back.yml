@@ -18,8 +18,7 @@
       state: present
       
   - name: Install packages based on package.json
-    community.general.npm:
-      path: /vagrant/backend
+    command: npm --prefix /vagrant/backend install --no-bin-links
     
   - name: Install pm2
     command: sudo pacman -Sy --noconfirm pm2  

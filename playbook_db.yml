@@ -21,8 +21,7 @@
       state: present
 
   - name: Install packages based on package.json
-    community.general.npm:
-      path: /vagrant/backend
+    command: npm --prefix /vagrant/backend install --no-bin-links
 
   - name: Install package pip from repo
     community.general.pacman:

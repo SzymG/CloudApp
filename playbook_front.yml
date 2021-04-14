@@ -17,9 +17,8 @@
       name: npm
       state: present
       
-  - name: Install packages based on package.json.
-    community.general.npm:
-      path: /vagrant/frontend
+  - name: Install packages based on package.json
+    command: npm --prefix /vagrant/frontend install --no-bin-links
     
   - name: Install pm2
     command: sudo pacman -Sy --noconfirm pm2  

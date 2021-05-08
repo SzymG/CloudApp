@@ -1,14 +1,25 @@
-version: "3"
+version: "2"
 
 services:
-#    backend:
-#        build: ./backend
-#        ports:
-#            - "8080:8080"
-#        container_name: backend
-
-    frontend:
-        build: ./frontend
+    backend:
+        build: ./backend
         ports:
-            - "80:80"
-        container_name: frontend
+            - "8080:8080"
+        depends_on:
+            - db
+        container_name: backend
+
+    db:
+        container_name: mysql
+        image: mysql:5.7
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - "3307:3306"
+
+#    frontend:
+#        build: ./frontend
+#        ports:
+#            - "80:80"
+#        container_name: frontend

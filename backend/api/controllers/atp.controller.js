@@ -6,6 +6,7 @@ let dbData = JSON.parse(rawdata);
 
 var con = mysql.createConnection({
     host: "db",
+    port: '3306',
     user: dbData.user,
     password: dbData.password
 });

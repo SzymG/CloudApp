@@ -5,7 +5,7 @@ let rawdata = fs.readFileSync(__dirname + '/../../configuration/data/db.json');
 let dbData = JSON.parse(rawdata);
 
 var con = mysql.createConnection({
-    host: "localhost",
+    host: "db",
     user: dbData.user,
     password: dbData.password
 });

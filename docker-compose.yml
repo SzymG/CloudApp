@@ -10,7 +10,7 @@ services:
         container_name: backend
 
     db:
-        container_name: mysql
+        container_name: db
         image: mysql:5.7
         restart: always
         environment:

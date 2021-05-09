@@ -14,10 +14,11 @@ services:
         image: mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: root
-        build: ./db
 
-#    frontend:
-#        build: ./frontend
-#        ports:
-#            - "80:80"
-#        container_name: frontend
+    frontend:
+        build: ./frontend
+        ports:
+            - "80:80"
+        depends_on:
+            - backend
+        container_name: frontend

@@ -1,4 +1,4 @@
-const backendUrl = 'http://localhost:3000/api/';
+const backendUrl = 'http://localhost:8000/api/';
 
 export const fetchData = (method, url, body = "") => {
     url = backendUrl + url;

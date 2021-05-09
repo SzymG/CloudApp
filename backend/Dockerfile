@@ -1,12 +1,13 @@
-FROM node:12
+FROM node:14
 
-RUN mkdir -p /app
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json /app
-
-COPY . /app
+COPY package*.json ./
 
 RUN npm install
 
-CMD ["npm", "start"]
+COPY . .
+
+EXPOSE 8000
+
+CMD ["node", "server.js"]

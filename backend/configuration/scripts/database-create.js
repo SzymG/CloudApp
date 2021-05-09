@@ -28,7 +28,7 @@ con.connect((err) => {
                     `first_name` VARCHAR(50) NOT NULL, \
                     `last_name` VARCHAR(50) NOT NULL, \
                     `is_right_handed` TINYINT(1) NOT NULL DEFAULT 0, \
-                    `birth_date` DATE NOT NULL, \
+                    `birth_date` DATE, \
                     `country_symbol` VARCHAR(10) NOT NULL, \
                     PRIMARY KEY (`id`) \
                 );";
